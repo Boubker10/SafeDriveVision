@@ -1,4 +1,18 @@
 
+## 🧩 Installation and Configuration
+
+1. **Clone the repository:** :
+```
+git clone https://github.com/Boubker10/Projet_P6_Reconnaissance_des_Expressions_Faciales_avec_SNN
+```
+3. **Install the necessary dependencies:** :
+ ```
+ pip install -r requirements.txt
+
+
+
+
+
 
 https://github.com/Boubker10/SafeDriveVision/assets/116897761/1f05fc80-322d-412e-909b-58680501f5ee
 
