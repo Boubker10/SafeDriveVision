@@ -40,6 +40,9 @@ python SafeDriveVision.py --onnx --opt 3d
 python SafeDriveVisionV0.py
 
 ```
+
+4. **Google Colab**
+If you want to use the notebook version on Google Colab, download the file SafeDriveVision.ipynb and add it to your workspace 
    
 
 
