@@ -25,6 +25,22 @@ git clone https://github.com/Boubker10/SafeDriveVision
 
     Before running the project, make sure to download the YOLOv5 model checkpoint file `yolov5m.pt` from the official repository. You can download it [here](https://github.com/ultralytics/yolov5/releases/download/v5.0/yolov5m.pt).
 
+## 🤖 How to Use
+1. **2d_sparse**
+```
+python SafeDriveVision.py --onnx
+```
+
+2. **3d Face Reconstruction**
+```
+python SafeDriveVision.py --onnx --opt 3d
+```
+3. **2d V0**
+```
+python SafeDriveVisionV0.py
+
+```
+   
 
 
 
