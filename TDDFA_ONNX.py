@@ -1,6 +1,6 @@
 # coding: utf-8
 
-__author__ = 'cleardusk'
+
 
 import os.path as osp
 import numpy as np
