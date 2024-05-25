@@ -3,7 +3,7 @@
 
 1. **Clone the repository:** :
 ```
-git clone https://github.com/Boubker10/Projet_P6_Reconnaissance_des_Expressions_Faciales_avec_SNN
+git clone https://github.com/Boubker10/SafeDriveVision
 ```
 3. **Install the necessary dependencies:** :
  ```
