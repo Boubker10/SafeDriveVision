@@ -67,4 +67,3 @@ If you want to use the notebook version on Google Colab, download the file SafeD
 
 
 
-https://github.com/Boubker10/SafeDriveVision/assets/116897761/da0ef059-df9f-4ceb-9683-73e7fd228400
