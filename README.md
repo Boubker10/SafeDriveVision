@@ -1,11 +1,13 @@
 ## Requierments
 
-PyTorch >= 0.4.1 (PyTorch v1.1.0 is tested successfully on macOS and Linux.)
-Python >= 3.6 (Numpy, Scipy, Matplotlib)
-Dlib 
-OpenCV (Python version, for image IO operations.)
-Cython (For accelerating depth and PNCC render.)
-Platform: Linux or macOS (Windows is not tested.)
+- PyTorch >= 0.4.1 (PyTorch v1.1.0 is tested successfully on macOS and Linux.)
+
+- Python >= 3.6 (Numpy, Scipy, Matplotlib
+
+- Dlib 
+- OpenCV (Python version, for image IO operations.)
+- Cython (For accelerating depth and PNCC render.)
+- Platform: Linux or macOS (Windows is not tested.)
 
 
 
