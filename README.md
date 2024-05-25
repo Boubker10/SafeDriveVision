@@ -21,6 +21,9 @@ git clone https://github.com/Boubker10/SafeDriveVision
  ```
  pip install -r requirements.txt
 ```
+4. **Download the YOLOv5 checkpoint file (`yolov5m.pt`)**:
+
+    Before running the project, make sure to download the YOLOv5 model checkpoint file `yolov5m.pt` from the official repository. You can download it [here](https://github.com/ultralytics/yolov5/releases/download/v5.0/yolov5m.pt).
 
 
 
