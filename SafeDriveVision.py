@@ -20,7 +20,7 @@ from utils.functions import cv_draw_landmark
 # modell/experimental.py
 
 
-yolov5_path = 'C:\\Users\\o\\Downloads\\3DDFA_V2-master\\3DDFA_V2-master\\yolov5-master\\yolov5-master'
+#yolov5_path = 'C:\\Users\\o\\Downloads\\3DDFA_V2-master\\3DDFA_V2-master\\yolov5-master\\yolov5-master'
 sys.path.append(yolov5_path)
 # Importer les modules YOLOv5
 '''
@@ -33,12 +33,12 @@ from utill.torch_utils import select_device
 pygame.mixer.init()
 current_time = time.time()
 sounds = {
-    'eye': ('C:\\Users\\o\\Downloads\\eye.mp3', 5),
-    'regarder': ('C:\\Users\\o\\Downloads\\regarder.mp3', 5),
-    'reposer': ('C:\\Users\\o\\Downloads\\reposer.mp3', 5),
-    'phone': ('C:\\Users\\o\\Downloads\\phone.mp3', 5),
-    'welcome': ('C:\\Users\\o\\Downloads\\s1.mp3', 0),
-    'welcome_eng': ('C:\\Users\\o\\Downloads\\welcomeengl.mp3', 0)
+    'eye': ('./eye.mp3', 5),
+    'regarder': ('./regarder.mp3', 5),
+    'reposer': ('./reposer.mp3', 5),
+    'phone': ('./phone.mp3', 5),
+    'welcome': ('./s1.mp3', 0),
+    'welcome_eng': ('./welcomeengl.mp3', 0)
 }
 last_played = {key: 0 for key in sounds}
 
@@ -181,7 +181,7 @@ def main(args):
 
     # Load dlib model
     detector = dlib.get_frontal_face_detector()
-    predictor = dlib.shape_predictor('C:\\Users\\o\\Desktop\\dlib_shape_predictor\\shape_predictor_68_face_landmarks.dat')
+    predictor = dlib.shape_predictor('./shape_predictor_81_face_landmarks (1).dat')
     # Load YOLOv5 model
     #weights_path = 'C:\\Users\\o\\Downloads\\yolov5-master\\yolov5m.pt'
     #device = select_device('cuda' if torch.cuda.is_available() else 'cpu')
