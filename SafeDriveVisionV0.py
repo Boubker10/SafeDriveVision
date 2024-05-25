@@ -17,12 +17,12 @@ current_time = time.time()
 
 # Chemins des fichiers audio et délais associés
 sounds = {
-    'eye': ('C:\\Users\\o\\Downloads\\eye.mp3', 10),
-    'regarder': ('C:\\Users\\o\\Downloads\\regarder.mp3', 10),
-    'reposer': ('C:\\Users\\o\\Downloads\\reposer.mp3', 15),
-    'phone': ('C:\\Users\\o\\Downloads\\phone.mp3', 15),
-    'welcome': ('C:\\Users\\o\\Downloads\\s1.mp3', 0),
-    'welcome_eng': ('C:\\Users\\o\\Downloads\\welcomeengl.mp3', 0)
+    'eye': ('./eye.mp3', 10),
+    'regarder': ('./regarder.mp3', 10),
+    'reposer': ('./reposer.mp3', 15),
+    'phone': ('./phone.mp3', 15),
+    'welcome': ('./s1.mp3', 0),
+    'welcome_eng': ('./welcomeengl.mp3', 0)
 }
 
 # Dernière fois que le son a été joué
@@ -49,7 +49,7 @@ print("[INFO] project realized by: RMA assurance Marocaine d'assurance")
 # Initialiser le détecteur et le prédicteur de dlib
 print("[INFO] loading facial landmark predictor...")
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor('C:\\Users\\o\\Desktop\\dlib_shape_predictor\\shape_predictor_68_face_landmarks.dat')
+predictor = dlib.shape_predictor('./shape_predictor_81_face_landmarks (1).dat')
 
 print("[INFO] initializing camera...")
 cap = cv2.VideoCapture(0)
