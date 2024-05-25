@@ -7,7 +7,6 @@
 - Dlib 
 - OpenCV (Python version, for image IO operations.)
 - Cython (For accelerating depth and PNCC render.)
-- Platform: Linux or macOS (Windows is not tested.)
 
 
 
