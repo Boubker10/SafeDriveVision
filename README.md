@@ -8,6 +8,7 @@ git clone https://github.com/Boubker10/Projet_P6_Reconnaissance_des_Expressions_
 3. **Install the necessary dependencies:** :
  ```
  pip install -r requirements.txt
+```
 
 
 
