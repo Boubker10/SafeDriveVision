@@ -50,11 +50,10 @@ If you want to use the notebook version on Google Colab, download the file SafeD
 
 
 
-https://github.com/Boubker10/SafeDriveVision/assets/116897761/1f05fc80-322d-412e-909b-58680501f5ee
+https://github.com/Boubker10/SafeDriveVision/assets/116897761/63037957-e444-4b53-aa55-416eb4d1c29b
 
 
-https://github.com/Boubker10/SafeDriveVision/assets/116897761/74896966-7e77-4f97-80e4-68c94865a943
+https://github.com/Boubker10/SafeDriveVision/assets/116897761/77829b1a-ba66-4b57-b8d7-1354c7569788
 
 
-
-https://github.com/Boubker10/SafeDriveVision/assets/116897761/878bf882-933c-4978-ae59-28b3b5909d8f
+https://github.com/Boubker10/SafeDriveVision/assets/116897761/da0ef059-df9f-4ceb-9683-73e7fd228400
