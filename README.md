@@ -2,7 +2,7 @@
 
 - PyTorch >= 0.4.1 (PyTorch v1.1.0 is tested successfully.)
 
-- Python >= 3.6 (Numpy, Scipy, Matplotlib
+- Python >= 3.6 (Numpy, Scipy, Matplotlib)
 
 - Dlib 
 - OpenCV (Python version, for image IO operations.)
