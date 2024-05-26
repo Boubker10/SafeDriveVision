@@ -1,8 +1,6 @@
 torch
 torchvision
 matplotlib
-numpy
-opencv-python # cv2
 imageio
 imageio-ffmpeg
 pyyaml # yaml
@@ -10,7 +8,6 @@ tqdm
 argparse
 cython
 scikit-image # skimage
-scipy
 onnxruntime
 gradio
 imutils==0.5.3
