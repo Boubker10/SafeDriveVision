@@ -1,3 +1,14 @@
+# SafeDriveVision
+
+## Project Description
+SafeDriveVision is a computer vision project aimed at enhancing road safety. This project leverages deep learning models to detect and alert in real-time the dangerous behaviors of drivers, such as using a phone while driving or showing signs of drowsiness. The primary goal is to help reduce road accidents by alerting drivers to their potentially hazardous actions.
+
+## Features
+- **Phone Use Detection**: Utilizes the YOLOv5 model to identify drivers using their phones during driving.
+- **Drowsiness Detection**: Incorporates a custom detector (sharp detector) to monitor signs of driver fatigue.
+- **Real-Time Alerts**: Implements an alert system that warns the driver when a risky behavior is detected.
+
+
 ## Requierments
 
 - PyTorch >= 0.4.1 (PyTorch v1.1.0 is tested successfully.)
