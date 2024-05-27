@@ -81,12 +81,27 @@ We welcome contributions to the SafeDriveVision project! If you have suggestions
    ```bash
    git clone https://github.com/Boubker10/SafeDriveVision.git
    cd SafeDriveVision
+3. **Create your Feature Branch** (git checkout -b feature/AmazingFeature)
+
+4. **Commit your Changes**
+5. ```git commit -m 'Add some AmazingFeature'```
+   
+6. **Push to the Branch**
+ ``` git push origin feature/AmazingFeature ```
+
+7. **Open a Pull Request**
 
 
 ## Authors
 
 - **Boubker**  - [Boubker10](https://github.com/Boubker10)
 
+## Contact 
+Boubker BENNANI
+
+LinkedIn: @boubkerbennani
+Email: boubkerbennani44@gmail.com
+Project Link: https://github.com/Boubker10/SafeDriveVision
 
 
 
