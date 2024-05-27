@@ -71,6 +71,16 @@ If you want to use the notebook version on Google Colab, download the file SafeD
 
 
 
+## Contributions
+
+We welcome contributions to the SafeDriveVision project! If you have suggestions for improvements or notice any issues, here's how you can contribute:
+
+1. **Fork the Repository**: Start by forking the repository. This creates a copy of the project in your own GitHub account.
+
+2. **Clone Your Fork**: Clone the forked repository to your local machine. This allows you to work on the files locally.
+   ```bash
+   git clone https://github.com/Boubker10/SafeDriveVision.git
+   cd SafeDriveVision
 
 
 
