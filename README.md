@@ -100,7 +100,9 @@ We welcome contributions to the SafeDriveVision project! If you have suggestions
 Boubker BENNANI
 
 LinkedIn: @boubkerbennani
+
 Email: boubkerbennani44@gmail.com
+
 Project Link: https://github.com/Boubker10/SafeDriveVision
 
 
