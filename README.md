@@ -68,6 +68,114 @@ https://github.com/Boubker10/SafeDriveVision/assets/116897761/da0ef059-df9f-4ceb
 If you want to use the notebook version on Google Colab, download the file SafeDriveVision.ipynb and add it to your workspace 
    
 
+# FaceBoxesNet Architecture
+
+## Description
+FaceBoxesNet is a neural network architecture designed for object detection. Below is the detailed description of its layers:
+
+### Phase
+Can be either 'train' or 'test'.
+
+### Conv1
+- **CRelu** with:
+  - 3 input channels
+  - 24 output channels
+  - Kernel size 7x7
+  - Stride 4
+  - Padding 3
+
+### Pooling
+- Max pooling with:
+  - Kernel size 3x3
+  - Stride 2
+  - Padding 1
+
+### Conv2
+- **CRelu** with:
+  - 48 input channels
+  - 64 output channels
+  - Kernel size 5x5
+  - Stride 2
+  - Padding 2
+
+### Pooling
+- Max pooling with:
+  - Kernel size 3x3
+  - Stride 2
+  - Padding 1
+
+### Inception
+- Three consecutive Inception blocks.
+
+### Detection Source 1
+- Output after the Inception blocks.
+
+### Conv3_1
+- **BasicConv2d** with:
+  - 128 input channels
+  - 128 output channels
+  - Kernel size 1x1
+
+### Conv3_2
+- **BasicConv2d** with:
+  - 128 input channels
+  - 256 output channels
+  - Kernel size 3x3
+  - Stride 2
+  - Padding 1
+
+### Detection Source 2
+- Output after Conv3_2.
+
+### Conv4_1
+- **BasicConv2d** with:
+  - 256 input channels
+  - 128 output channels
+  - Kernel size 1x1
+
+### Conv4_2
+- **BasicConv2d** with:
+  - 128 input channels
+  - 256 output channels
+  - Kernel size 3x3
+  - Stride 2
+  - Padding 1
+
+### Detection Source 3
+- Output after Conv4_2.
+
+### Multibox Layers
+- Localization and classification layers applied to the detection sources.
+
+## Inception Module
+
+### Branch1x1
+- **BasicConv2d** with kernel size 1x1.
+
+### Branch1x1_2
+- **BasicConv2d** with kernel size 1x1 after pooling.
+
+### Branch3x3_reduce
+- **BasicConv2d** with kernel size 1x1.
+
+### Branch3x3
+- **BasicConv2d** with kernel size 3x3.
+
+### Branch3x3_reduce_2
+- **BasicConv2d** with kernel size 1x1.
+
+### Branch3x3_2
+- **BasicConv2d** with kernel size 3x3.
+
+### Branch3x3_3
+- **BasicConv2d** with kernel size 3x3.
+
+## BasicConv2d Module
+- 2D Convolution followed by BatchNorm and ReLU.
+
+## CRelu Module
+- 2D Convolution followed by BatchNorm and concatenation of the output with its negative, then ReLU.
+
 
 
 
