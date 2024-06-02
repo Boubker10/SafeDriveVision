@@ -177,6 +177,7 @@ Can be either 'train' or 'test'.
 - 2D Convolution followed by BatchNorm and concatenation of the output with its negative, then ReLU.
 
 
+![neuro](https://github.com/Boubker10/SafeDriveVision/assets/116897761/7044efec-f7ad-4749-8dec-be73e0ef172b)
 
 
 ## Contributions
