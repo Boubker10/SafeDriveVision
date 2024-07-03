@@ -1,0 +1,30 @@
+name: Update profile views
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs every hour
+  push:
+    branches:
+      - main
+
+jobs:
+  update-views:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Update profile views count
+        run: |
+          VIEWS=$(curl -s https://api.github.com/repos/Boubker10/SafeDriveVision/traffic/views | jq '.count')
+          BADGE="https://img.shields.io/badge/Profile%20views-${VIEWS}-blue"
+          echo "![$VIEWS]($BADGE)" > views.md
+
+      - name: Commit changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add views.md
+          git commit -m "Update profile views badge"
+          git push
