@@ -166,4 +166,5 @@ Project Link: https://github.com/Boubker10/SafeDriveVision
 
 
 ## Views
-![Profile views](https://github.com/Boubker10/SafeDriveVision/blob/main/views.md)
+![Profile views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://github.com/Boubker10/SafeDriveVision)
+
