@@ -3,6 +3,11 @@
 ## Project Description
 SafeDriveVision is a computer vision project aimed at enhancing road safety. This project leverages deep learning models to detect and alert in real-time the dangerous behaviors of drivers, such as using a phone while driving or showing signs of drowsiness. The primary goal is to help reduce road accidents by alerting drivers to their potentially hazardous actions.
 
+## Medium Article
+
+To read a detailed explanation of the SafeDriveVision project, check out the article on Medium: [SafeDriveVision: Enhancing Road Safety through Computer Vision](https://medium.com/@boubkerbennani44/safedrivevision-enhancing-road-safety-through-computer-vision-d0db5f75ebe9)
+
+
 ## Features
 - **Phone Use Detection**: Utilizes the YOLOv5 model to identify drivers using their phones during driving.
 - **Drowsiness Detection**: Incorporates a custom detector (sharp detector) to monitor signs of driver fatigue.
