@@ -12,7 +12,7 @@ onnxruntime
 gradio
 imutils==0.5.3
 opencv-contrib-python==4.2.0.34
-opencv-python==4.2.0.34
+opencv-python>=4.8.1.78
 dlib==19.20.0
 numpy==1.22.0
 cmake==3.18.0
