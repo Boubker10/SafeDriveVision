@@ -8,6 +8,7 @@ from scipy.spatial import distance as dist
 import math
 from imutils.video import FPS
 from imutils.video import VideoStream
+from ultralytics.utils.plotting import Annotator
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 smile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_smile.xml')
@@ -50,9 +51,13 @@ def rotationMatrixToEulerAngles(R):
 def calculate_ear(eye_landmarks):
     A = dist.euclidean(eye_landmarks[1], eye_landmarks[5])
     B = dist.euclidean(eye_landmarks[2], eye_landmarks[4])
-    C = dist.euclidean(eye_landmarks[0], eye_landmarks[3])
+    C = dist.euclidean(eye_landmarks[0], eye_landmarks[3])  
     ear = (A + B) / (2.0 * C)
     return ear
+
+def get_color(idx):
+    np.random.seed(idx)
+    return tuple(np.random.randint(0, 255, 3).tolist())
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-p", "--prototxt", required=True, help='Path to prototxt')
@@ -67,8 +72,7 @@ Mouth = [61, 185, 40, 39, 37, 0, 267, 270, 409, 291, 375, 321, 405, 314, 17, 84,
 
 labels = ["background", "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "cell phone", "cow", 
           "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
-
-colors = np.random.uniform(0, 255, size=(len(labels), 3))
+FACE_68_LANDMARKS = [1, 33, 61, 291, 199, 263, 362, 385, 387, 373, 380, 33, 160, 158, 133, 153, 144, 362, 385, 387, 263, 373, 380, 61, 185, 40, 39, 37, 0, 267, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146, 61]
 
 print('[Status] SafeDriveVersionV2 Loading...')
 nn = cv2.dnn.readNetFromCaffe(args['prototxt'], args['model'])
@@ -77,6 +81,30 @@ print('[Status] Starting Video Stream...')
 vs = VideoStream(src=0).start()
 time.sleep(2.0)
 fps = FPS().start()
+
+def detect_hands_on_wheel(hand_landmarks):
+    if len(hand_landmarks) == 2:  
+        hand1 = hand_landmarks[0]
+        hand2 = hand_landmarks[1]
+        distance_between_hands = dist.euclidean(
+            (hand1.landmark[mp_hands.HandLandmark.WRIST].x, hand1.landmark[mp_hands.HandLandmark.WRIST].y),
+            (hand2.landmark[mp_hands.HandLandmark.WRIST].x, hand2.landmark[mp_hands.HandLandmark.WRIST].y)
+        )
+        if distance_between_hands < 0.1: 
+            return True
+    return False
+
+def get_hand_side(hand_landmarks):
+    thumb_tip_x = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP].x
+    wrist_x = hand_landmarks.landmark[mp_hands.HandLandmark.WRIST].x
+    if thumb_tip_x < wrist_x:
+        return "Left Hand"
+    else:
+        return "Right Hand"
+
+# Define the ROI for counting people
+ROI_TOP_LEFT = (100, 100)
+ROI_BOTTOM_RIGHT = (500, 400)
 
 while True:
     frame = vs.read()
@@ -89,21 +117,36 @@ while True:
 
     detected_objects = []
 
-    for i in np.arange(0, detections.shape[2]):
+    annotator = Annotator(frame, line_width=2)
+
+    # Initialize the person count within ROI
+    face_count_in_roi = 0
+
+    for i in range(detections.shape[2]):
         confidence = detections[0, 0, i, 2]
-        
-        if confidence > args['confidence']:
+        if confidence > 0.5:  # Filter weak detections
             idx = int(detections[0, 0, i, 1])
             box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
             (startX, startY, endX, endY) = box.astype("int")
-            label = "{}: {:.2f}%".format(labels[idx], confidence * 100)
-            cv2.rectangle(frame, (startX, startY), (endX, endY), colors[idx], 2)
-            y = startY - 15 if startY - 15 > 15 else startY + 15
-            cv2.putText(frame, label, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, colors[idx], 2)
-            detected_objects.append(label)
-            if idx == 9:
-                detected_objects.append("Cell Phone Detected")
-    
+            
+            # Check if a face is detected 
+
+
+
+            # Create a mask for the detected object (simple rectangular mask for illustration)
+            mask = np.zeros(frame.shape[:2], dtype=np.uint8)
+            mask[startY:endY, startX:endX] = 255
+
+            color = get_color(idx)
+            txt_color = annotator.get_txt_color(color)
+
+            # Find contours
+            contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            cv2.drawContours(frame, contours, -1, color, 2)
+
+            # Optionally draw label
+            cv2.putText(frame, labels[idx], (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, txt_color, 2)
+
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     result_hands = hands.process(frame_rgb)
     result_face_mesh = face_mesh.process(frame_rgb)
@@ -113,34 +156,64 @@ while True:
     # Detect faces
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
     for (x, y, w, h) in faces:
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 3)
+        if (x > ROI_TOP_LEFT[0] and y > ROI_TOP_LEFT[1] and (x+w) < ROI_BOTTOM_RIGHT[0] and (y+h) < ROI_BOTTOM_RIGHT[1]):
+            face_count_in_roi += 1
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 3)
+        detected_objects.append("Face Detected")
+        
         face_gray = gray[y:y+h, x:x+w]
         face_color = frame[y:y+h, x:x+w]
         
         # Detect smiles
-        smiles = smile_cascade.detectMultiScale(face_gray, scaleFactor=1.7, minNeighbors=20)
+        smiles = smile_cascade.detectMultiScale(face_gray, scaleFactor=1.7, minNeighbors=15)
         for (sx, sy, sw, sh) in smiles:
-            cv2.rectangle(face_color, (sx, sy), (sx+sw, sy+sh), (255, 0, 0), 2)
+            cv2.rectangle(face_color, (sx, sy), (sx+sw, sy+sh), (255, 255, 255), 2)
+            cv2.putText(frame, 'Smile Detected', (x, y+h+20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 255, 0), 2)
             detected_objects.append("Smile Detected")
     
     # Detect hands
     if result_hands.multi_hand_landmarks:
+        if detect_hands_on_wheel(result_hands.multi_hand_landmarks):
+            detected_objects.append("Hands on Wheel")
+        else:
+            detected_objects.append("Hands off Wheel")
+            
         for hand_landmarks in result_hands.multi_hand_landmarks:
+            hand_side = get_hand_side(hand_landmarks)
+            detected_objects.append(hand_side)
+            
+            # Calculate bounding box for hand
+            hand_landmarks_array = np.array([[(landmark.x * w, landmark.y * h) for landmark in hand_landmarks.landmark]], dtype=np.float32)
+            box = cv2.boundingRect(hand_landmarks_array)
+            
+            # Draw landmarks
             mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-
+            
+            # Detect gestures or manipulation of objects
+            thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
+            index_finger_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
+            distance = dist.euclidean(
+                (thumb_tip.x * w, thumb_tip.y * h),
+                (index_finger_tip.x * w, index_finger_tip.y * h)
+            )
+            if distance < 0.05:  # Threshold to detect pinch or holding small object
+                detected_objects.append("Manipulating Object")
+            else:
+                detected_objects.append("No Object Manipulation")
+    
     # Detect face mesh
     if result_face_mesh.multi_face_landmarks:
         for face_landmarks in result_face_mesh.multi_face_landmarks:
             mp_drawing.draw_landmarks(frame, face_landmarks, mp_face_mesh.FACEMESH_TESSELATION,
                                       mp_drawing.DrawingSpec(color=(255, 255, 255), thickness=1, circle_radius=1),
                                       mp_drawing.DrawingSpec(color=(0, 0, 255), thickness=1, circle_radius=1))
+                
             landmarks = face_landmarks.landmark
             left_eye_landmarks = [face_landmarks.landmark[i] for i in LEFT_EYE]
             right_eye_landmarks = [face_landmarks.landmark[i] for i in RIGHT_EYE]
             left_eye_points = [(int(point.x * frame.shape[1]), int(point.y * frame.shape[0])) for point in left_eye_landmarks]
             right_eye_points = [(int(point.x * frame.shape[1]), int(point.y * frame.shape[0])) for point in right_eye_landmarks]
-            
-            # Calculate EAR for both eyes
+
             left_ear = calculate_ear(left_eye_points)
             right_ear = calculate_ear(right_eye_points)
             ear = (left_ear + right_ear) / 2.0
@@ -184,13 +257,16 @@ while True:
             
             detected_objects.append("Pitch: {:.2f} Yaw: {:.2f} Roll: {:.2f}".format(angles[0], angles[1], angles[2]))
 
+    # Draw ROI rectangle
+    cv2.rectangle(frame, ROI_TOP_LEFT, ROI_BOTTOM_RIGHT, (0, 255, 0), 2)
+    # Display person count in ROI
+    cv2.putText(frame, f'faces in ROI: {face_count_in_roi}', (ROI_TOP_LEFT[0], ROI_TOP_LEFT[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+
     info_display = np.zeros((300, 600, 3), dtype=np.uint8)
 
-    # Display all detected information as a table
     for idx, text in enumerate(detected_objects):
         cv2.putText(info_display, text, (10, (idx + 1) * 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
     
-    # Show both the video frame and the info display
     cv2.imshow("Frame", frame)
     cv2.imshow("Info", info_display)
     
